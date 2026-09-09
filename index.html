@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jaden Marion R. Angulo | Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root {
+    --black: #050505;
+    --dark: #0b0b0b;
+    --panel: #111111;
+
+    --red: #D90429;
+    --bright-red: #FF0033;
+
+    --white: #F7FAFC;
+    --gray: #A0AEC0;
+
+    --heading: 'Oswald', sans-serif;
+    --body: 'Montserrat', sans-serif;
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: var(--black);
+    color: var(--gray);
+    font-family: var(--body);
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   TACTICAL BACKGROUND
+===================================================== */
+
+.app-background {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(217, 4, 41, 0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 0, 51, 0.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #151515 50%,
+            #050505
+        );
+
+    z-index: -5;
+}
+
+
+/* Grid */
+
+.app-background::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    animation: gridMove 15s linear infinite;
+}
+
+
+@keyframes gridMove {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 50px 50px;
+    }
+}
+
+
+/* Moving red glow */
+
+.app-background::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -150px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: var(--red);
+
+    filter: blur(180px);
+
+    opacity: 0.12;
+
+    animation: glowMove 6s ease-in-out infinite alternate;
+}
+
+
+@keyframes glowMove {
+
+    from {
+        opacity: 0.08;
+        transform: translateY(-50%) scale(0.9);
+    }
+
+    to {
+        opacity: 0.18;
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+
+/* Dark overlay */
+
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,5,5,1),
+            rgba(5,5,5,0.65),
+            rgba(5,5,5,0.95)
+        );
+
+    z-index: -4;
+}
+
+
+/* Scan lines */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.025) 0px,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    z-index: 999;
+}
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+#loading-screen {
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #191919,
+            #050505 70%
+        );
+
+    z-index: 10000;
+
+    display: flex;
+    align-items: flex-end;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+
+#loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+/* Loading grid */
+
+#loading-screen::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+}
+
+
+/* Red scanning line */
+
+.loading-scan {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: var(--bright-red);
+
+    box-shadow:
+        0 0 10px var(--bright-red),
+        0 0 30px var(--red);
+
+    animation: scan 3s linear infinite;
+}
+
+
+@keyframes scan {
+
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100%;
+    }
+}
+
+
+/* Loading content */
+
+.loading-ui {
+    position: relative;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding:
+        3rem 7%;
+}
+
+
+.loading-top {
+    position: absolute;
+
+    top: 35px;
+    left: 7%;
+
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 4px;
+
+    color: rgba(255,255,255,0.4);
+
+    text-transform: uppercase;
+}
+
+
+.loading-title {
+    font-family: var(--heading);
+
+    font-size: clamp(
+        3rem,
+        7vw,
+        6rem
+    );
+
+    color: var(--white);
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    line-height: 1;
+}
+
+
+.loading-title span {
+    color: var(--red);
+
+    text-shadow:
+        0 0 15px var(--red),
+        0 0 30px var(--red);
+}
+
+
+.loading-subtitle {
+    margin-top: 10px;
+    margin-bottom: 40px;
+
+    font-family: var(--heading);
+
+    font-size: 0.8rem;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: var(--gray);
+}
+
+
+/* Loading information */
+
+.loading-text {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    font-family: var(--heading);
+
+    font-size: 0.85rem;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+#load-status {
+    color: var(--red);
+}
+
+
+#load-percentage {
+    color: var(--white);
+}
+
+
+/* Progress bar */
+
+.loading-bar-track {
+    position: relative;
+
+    width: 100%;
+    height: 7px;
+
+    background: rgba(255,255,255,0.08);
+
+    border:
+        1px solid rgba(255,255,255,0.15);
+
+    overflow: hidden;
+}
+
+
+.loading-bar-fill {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0%;
+    height: 100%;
+
+    background: var(--red);
+
+    box-shadow:
+        0 0 15px var(--red),
+        0 0 30px var(--bright-red);
+
+    transition: width 0.1s linear;
+}
+
+
+.loading-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 12px;
+
+    font-family: var(--heading);
+
+    font-size: 0.6rem;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,0.3);
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+#app-container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 2rem;
+}
+
+
+/* =====================================================
+   VIEWS
+===================================================== */
+
+.view {
+    display: none;
+
+    opacity: 0;
+
+    width: 100%;
+    max-width: 1200px;
+
+    height: 100%;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: flex-end;
+}
+
+
+.view.active {
+    display: flex;
+
+    opacity: 1;
+
+    animation: slideIn 0.5s ease forwards;
+}
+
+
+@keyframes slideIn {
+
+    from {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+#back-btn {
+    position: fixed;
+
+    top: 40px;
+    left: 40px;
+
+    display: none;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--gray);
+
+    font-family: var(--heading);
+
+    font-size: 1.1rem;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    z-index: 100;
+
+    transition: 0.2s;
+}
+
+
+#back-btn.visible {
+    display: flex;
+}
+
+
+#back-btn:hover {
+    color: white;
+    transform: translateX(-5px);
+}
+
+
+#back-btn::before {
+    content: "◄";
+
+    color: var(--red);
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.cod-menu {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1.5rem;
+
+    padding-right: 35px;
+
+    border-right:
+        2px solid rgba(255,255,255,0.15);
+}
+
+
+.cod-menu-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition: 0.25s ease;
+}
+
+
+.cod-menu-item:hover {
+    transform: translateX(-15px);
+}
+
+
+.cod-menu-item::after {
+    content: "";
+
+    position: absolute;
+
+    right: -37px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 4px;
+    height: 0;
+
+    background: white;
+
+    transition: 0.2s;
+
+    box-shadow: 0 0 10px white;
+}
+
+
+.cod-menu-item:hover::after {
+    height: 60%;
+}
+
+
+.cod-menu-text-container {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    margin-right: 15px;
+}
+
+
+.cod-menu-text {
+    padding: 8px 25px;
+
+    background:
+        rgba(10,10,10,0.75);
+
+    border:
+        1px solid rgba(255,255,255,0.05);
+
+    font-family: var(--heading);
+
+    font-size: 2.2rem;
+
+    color:
+        rgba(255,255,255,0.7);
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    transition: 0.2s;
+}
+
+
+.cod-menu-item:hover .cod-menu-text {
+    color: white;
+
+    background:
+        rgba(25,25,25,0.95);
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.4);
+}
+
+
+.cod-menu-subtext {
+    margin-top: 5px;
+    margin-right: 5px;
+
+    font-family: var(--heading);
+
+    font-size: 0.75rem;
+
+    letter-spacing: 2px;
+
+    color: var(--red);
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   HEXAGON
+===================================================== */
+
+.cod-icon-wrap {
+    width: 50px;
+    height: 55px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.cod-hex-outer {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        rgba(255,255,255,0.3);
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 25%,
+            100% 75%,
+            50% 100%,
+            0% 75%,
+            0% 25%
+        );
+}
+
+
+.cod-hex-inner {
+    position: absolute;
+
+    width: 92%;
+    height: 92%;
+
+    background: #111;
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 25%,
+            100% 75%,
+            50% 100%,
+            0% 75%,
+            0% 25%
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: var(--heading);
+
+    font-weight: bold;
+
+    color: #aaa;
+}
+
+
+.cod-menu-item:hover .cod-hex-outer {
+    background: white;
+
+    box-shadow:
+        0 0 20px white;
+}
+
+
+.cod-menu-item:hover .cod-hex-inner {
+    color: white;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content-panel {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding: 0 10%;
+
+    overflow-y: auto;
+}
+
+
+.panel-header {
+    font-family: var(--heading);
+
+    font-size: 4rem;
+
+    color: white;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 2rem;
+
+    border-bottom:
+        2px solid var(--red);
+
+    padding-bottom: 10px;
+}
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+.data-grid {
+    width: 100%;
+    max-width: 800px;
+
+    display: grid;
+
+    gap: 1.5rem;
+
+    padding: 3rem;
+
+    background:
+        rgba(15,15,15,0.88);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    border-left:
+        4px solid var(--red);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.6);
+
+    margin-bottom: 2rem;
+}
+
+
+.data-row {
+    display: flex;
+
+    align-items: center;
+
+    font-size: 1.1rem;
+}
+
+
+.data-label {
+    width: 150px;
+
+    color: var(--red);
+
+    font-family: var(--heading);
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.data-value {
+    color: white;
+
+    font-weight: 500;
+}
+
+
+.games-list {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.game-tag {
+    padding: 5px 12px;
+
+    border:
+        1px solid rgba(255,255,255,0.2);
+
+    background:
+        rgba(255,255,255,0.05);
+
+    font-family: var(--heading);
+
+    font-size: 0.8rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    transition: 0.2s;
+}
+
+
+.game-tag:hover {
+    border-color: var(--red);
+
+    background:
+        rgba(217,4,41,0.15);
+}
+
+
+/* =====================================================
+   PROJECT CARDS
+===================================================== */
+
+.project-list {
+    width: 100%;
+    max-width: 800px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1.2rem;
+}
+
+
+.project-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 1.5rem 2rem;
+
+    background:
+        rgba(15,15,15,0.88);
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    border-left:
+        4px solid var(--red);
+
+    transition: 0.25s ease;
+}
+
+
+.project-item:hover {
+    transform: translateX(-8px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.5);
+}
+
+
+.project-name {
+    font-family: var(--heading);
+
+    font-size: 1.4rem;
+
+    color: white;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
+}
+
+
+.project-desc {
+    font-size: 0.9rem;
+
+    color: var(--gray);
+
+    max-width: 480px;
+}
+
+
+.project-tag {
+    font-family: var(--heading);
+
+    font-size: 0.75rem;
+
+    letter-spacing: 2px;
+
+    color: var(--red);
+
+    white-space: nowrap;
+
+    margin-left: 20px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    margin-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-family: var(--heading);
+
+    font-size: 0.7rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+
+    box-shadow:
+        0 0 10px var(--red);
+
+    animation:
+        blink 1.2s infinite;
+}
+
+
+@keyframes blink {
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    #app-container {
+        padding: 1rem;
+    }
+
+
+    .view {
+        align-items: center;
+    }
+
+
+    .cod-menu {
+        width: 100%;
+
+        align-items: center;
+
+        border-right: none;
+
+        padding-right: 0;
+    }
+
+
+    .cod-menu-item {
+        flex-direction: column-reverse;
+
+        gap: 10px;
+
+        width: 100%;
+    }
+
+
+    .cod-menu-item::after {
+        display: none;
+    }
+
+
+    .cod-menu-text-container {
+        margin-right: 0;
+
+        align-items: center;
+    }
+
+
+    .cod-menu-text {
+        font-size: 1.7rem;
+
+        text-align: center;
+    }
+
+
+    .content-panel {
+        padding: 0 5%;
+    }
+
+
+    .panel-header {
+        font-size: 2.6rem;
+    }
+
+
+    .data-grid {
+        padding: 1.5rem;
+    }
+
+
+    .data-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+    }
+
+
+    .data-label {
+        width: auto;
+    }
+
+
+    .project-item {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+
+    .project-tag {
+        margin-left: 0;
+    }
+
+
+    #back-btn {
+        top: 20px;
+        left: 20px;
+
+        font-size: 0.85rem;
+    }
+
+
+    .loading-title {
+        font-size: 2.8rem;
+    }
+
+
+    .loading-footer {
+        display: none;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .cod-menu-text {
+        font-size: 1.45rem;
+
+        padding:
+            7px 18px;
+    }
+
+
+    .cod-icon-wrap {
+        width: 42px;
+        height: 47px;
+    }
+
+
+    .panel-header {
+        font-size: 2.1rem;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<div id="loading-screen">
+
+    <div class="loading-scan"></div>
+
+    <div class="loading-top">
+        ANGULO // PERSONAL OPERATIONS NETWORK
+    </div>
+
+    <div class="loading-ui">
+
+        <div class="loading-title">
+            SYSTEM <span>ONLINE</span>
+        </div>
+
+        <div class="loading-subtitle">
+            Initializing Operator Profile
+        </div>
+
+        <div class="loading-text">
+
+            <span id="load-status">
+                Initializing System
+            </span>
+
+            <span id="load-percentage">
+                0%
+            </span>
+
+        </div>
+
+        <div class="loading-bar-track">
+
+            <div
+                id="load-bar"
+                class="loading-bar-fill">
+            </div>
+
+        </div>
+
+        <div class="loading-footer">
+
+            <span>
+                AUTHORIZATION: VERIFIED
+            </span>
+
+            <span>
+                CONNECTION: SECURE
+            </span>
+
+            <span>
+                BUILD 2026
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<div class="app-background"></div>
+
+<div class="bg-overlay"></div>
+
+
+<!-- =====================================================
+     BACK BUTTON
+===================================================== -->
+
+<div
+    id="back-btn"
+    onclick="navigate('main-menu')">
+
+    Back
+
+</div>
+
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<main id="app-container">
+
+
+    <!-- =================================================
+         MAIN MENU
+    ================================================== -->
+
+    <div
+        id="main-menu"
+        class="view active">
+
+        <div class="cod-menu">
+          
+<!-- ABOUT -->
+
+            <div
+                class="cod-menu-item"
+                onclick="navigate('about-view')">
+
+                <div class="cod-menu-text-container">
+
+                    <div class="cod-menu-text">
+                        About Me
+                    </div>
+
+                    <div class="cod-menu-subtext">
+                        Operator Profile
+                    </div>
+
+                </div>
+
+                <div class="cod-icon-wrap">
+
+                    <div class="cod-hex-outer"></div>
+
+                    <div class="cod-hex-inner">
+                        1
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div
+                class="cod-menu-item"
+                onclick="navigate('projects-view')">
+
+                <div class="cod-menu-text-container">
+
+                    <div class="cod-menu-text">
+                        Projects
+                    </div>
+
+                    <div class="cod-menu-subtext">
+                        System Archives
+                    </div>
+
+                </div>
+
+                <div class="cod-icon-wrap">
+
+                    <div class="cod-hex-outer"></div>
+
+                    <div class="cod-hex-inner">
+                        2
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OTHER -->
+
+            <div
+                class="cod-menu-item"
+                onclick="navigate('other-view')">
+
+                <div class="cod-menu-text-container">
+
+                    <div class="cod-menu-text">
+                        Other
+                    </div>
+
+                    <div class="cod-menu-subtext">
+                        Miscellaneous Data
+                    </div>
+
+                </div>
+
+                <div class="cod-icon-wrap">
+
+                    <div class="cod-hex-outer"></div>
+
+                    <div class="cod-hex-inner">
+                        3
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ABOUT ME
+    ================================================== -->
+
+    <div
+        id="about-view"
+        class="view">
+
+        <div class="content-panel">
+
+            <h1 class="panel-header">
+                Operator Data
+            </h1>
+
+            <div class="data-grid">
+
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        Designation:
+                    </div>
+
+                    <div class="data-value">
+                        Jaden Marion R. Angulo
+                    </div>
+
+                </div>
+
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        Age:
+                    </div>
+
+                    <div class="data-value">
+                        17
+                    </div>
+
+                </div>
+
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        Role:
+                    </div>
+
+                    <div class="data-value">
+                        Student / Aspiring Developer
+                    </div>
+
+                </div>
+
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        University:
+                    </div>
+
+                    <div class="data-value">
+                        Polytechnic University of the Philippines 
+                    </div>
+
+                </div>
+
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        Interests:
+                    </div>
+
+                    <div class="games-list">
+                        <div class="game-tag">Valorant</div>
+                        <div class="game-tag">Call of duty mobile</div>
+                        <div class="game-tag">Apex legends</div>
+                        <div class="game-tag">Cycling</div>
+                        <div class="game-tag">Drawing</div>
+                        <div class="game-tag">Playing drums</div>
+                    </div>
+
+                </div>
+               
+
+                <div class="data-row">
+
+                    <div class="data-label">
+                        Bands i listen to:
+                    </div>
+
+                    <div class="games-list">
+                        <div class="game-tag">Pierce the Viel</div>
+                        <div class="game-tag">Chase Atlantic</div>
+                        <div class="game-tag">21 Pilots</div>
+                        <div class="game-tag">My Chemical Romance</div>
+                        <div class="game-tag">Sleeping with sirens</div>
+                        <div class="game-tag">Bullet for my valentine</div>
+                        <div class="game-tag">Slipknot</div>
+                    </div>
+
+                </div>
+
+
+                <div class="status">
+                    <div class="status-dot"></div>
+                    Status: Actively Learning
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PROJECTS
+    ================================================== -->
+
+    <div
+        id="projects-view"
+        class="view">
+
+        <div class="content-panel">
+
+            <h1 class="panel-header">
+                System Archives
+            </h1>
+
+            <div class="project-list">
+
+                <div class="project-item">
+                    <div>
+                        <div class="project-name">Projects</div>
+                        <div class="project-desc">
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div>
+                        <div class="project-name">Flowcharts</div>
+                        <div class="project-desc">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div>
+                        <div class="project-name">Activities</div>
+                        <div class="project-desc">
+                           
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         OTHER
+    ================================================== -->
+
+    <div
+        id="other-view"
+        class="view">
+
+        <div class="content-panel">
+
+            <h1 class="panel-header">
+                Miscellaneous Data
+            </h1>
+
+            <div class="data-grid">
+
+                <div class="data-row">
+                    <div class="data-label">
+                        Email:
+                    </div>
+                    <div class="data-value">
+                        jadenxval@gmail.com
+                    </div>
+                </div>
+
+                <div class="data-row">
+                    <div class="data-label">
+                        Facebook:
+                    </div>
+                    <div class="data-value">
+                        Jaden Marion 
+                    </div>
+                </div>
+
+                <div class="data-row">
+                    <div class="data-label">
+                        Quote:
+                    </div>
+                    <div class="data-value">
+                        "A star shines when it's dark"
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+<!-- =====================================================
+     SCRIPT
+===================================================== -->
+
+<script>
+
+    // ---- Loading sequence ----
+
+    const loadBar = document.getElementById('load-bar');
+    const loadPercentage = document.getElementById('load-percentage');
+    const loadStatus = document.getElementById('load-status');
+    const loadingScreen = document.getElementById('loading-screen');
+
+    const statusMessages = [
+        { at: 0,  text: 'Initializing System' },
+        { at: 25, text: 'Loading Operator Data' },
+        { at: 55, text: 'Establishing Connection' },
+        { at: 80, text: 'Rendering Interface' },
+        { at: 100, text: 'Ready' }
+    ];
+
+    let progress = 0;
+
+    const loadingInterval = setInterval(() => {
+        progress += Math.random() * 8 + 4;
+
+        if (progress >= 100) {
+            progress = 100;
+        }
+
+        loadBar.style.width = progress + '%';
+        loadPercentage.textContent = Math.floor(progress) + '%';
+
+        const current = [...statusMessages]
+            .reverse()
+            .find(step => progress >= step.at);
+
+        if (current) {
+            loadStatus.textContent = current.text;
+        }
+
+        if (progress >= 100) {
+            clearInterval(loadingInterval);
+
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+            }, 400);
+        }
+    }, 150);
+
+
+    // ---- Navigation ----
+
+    function navigate(targetId) {
+        const views = document.querySelectorAll('.view');
+        const backBtn = document.getElementById('back-btn');
+
+        views.forEach(view => view.classList.remove('active'));
+
+        document.getElementById(targetId).classList.add('active');
+
+        if (targetId === 'main-menu') {
+            backBtn.classList.remove('visible');
+        } else {
+            backBtn.classList.add('visible');
+        }
+    }
+
+</script>
+
+
+</body>
+</html>
