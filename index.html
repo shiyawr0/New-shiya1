@@ -1268,7 +1268,7 @@ body::before {
 
 <div
     id="back-btn"
-    onclick="navigate('main-menu')">
+    <div id="back-btn" onclick="goBack()">Back</div>
 
     Back
 
@@ -1511,50 +1511,139 @@ body::before {
     ================================================== -->
 
     <div
-        id="projects-view"
-        class="view">
+    id="projects-view"
+    class="view">
 
-        <div class="content-panel">
+    <div class="content-panel">
 
-            <h1 class="panel-header">
-                System Archives
-            </h1>
+        <h1 class="panel-header">
+            System Archives
+        </h1>
 
-            <div class="project-list">
+        <div class="project-list">
 
-                <div class="project-item">
-                    <div>
-                        <div class="project-name">Projects</div>
-                        <div class="project-desc">
-                           
-                        </div>
+            <div class="project-item" onclick="navigate('projects-detail-view')">
+                <div>
+                    <div class="project-name">Projects</div>
+                    <div class="project-desc">
+                       
                     </div>
                 </div>
+            </div>
 
-                <div class="project-item">
-                    <div>
-                        <div class="project-name">Flowcharts</div>
-                        <div class="project-desc">
-                        </div>
+            <div class="project-item" onclick="navigate('flowcharts-view')">
+                <div>
+                    <div class="project-name">Flowcharts</div>
+                    <div class="project-desc">
                     </div>
                 </div>
+            </div>
 
-                <div class="project-item">
-                    <div>
-                        <div class="project-name">Activities</div>
-                        <div class="project-desc">
-                           
-                        </div>
+            <div class="project-item" onclick="navigate('activities-view')">
+                <div>
+                    <div class="project-name">Activities</div>
+                    <div class="project-desc">
+                       
                     </div>
-                    
                 </div>
-
+                
             </div>
 
         </div>
 
     </div>
 
+</div>
+
+
+<!-- PROJECTS DETAIL -->
+
+<div
+    id="projects-detail-view"
+    class="view">
+
+    <div class="content-panel">
+
+        <h1 class="panel-header">
+            Projects
+        </h1>
+
+        <div class="project-list">
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">Project Name Here</div>
+                    <div class="project-desc">
+                        Description goes here.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FLOWCHARTS -->
+
+<div
+    id="flowcharts-view"
+    class="view">
+
+    <div class="content-panel">
+
+        <h1 class="panel-header">
+            Flowcharts
+        </h1>
+
+        <div class="project-list">
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">Flowchart Name Here</div>
+                    <div class="project-desc">
+                        Description goes here.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ACTIVITIES -->
+
+<div
+    id="activities-view"
+    class="view">
+
+    <div class="content-panel">
+
+        <h1 class="panel-header">
+            Activities
+        </h1>
+
+        <div class="project-list">
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">Activity Name Here</div>
+                    <div class="project-desc">
+                        Description goes here.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
     <!-- =================================================
          OTHER
@@ -1662,20 +1751,36 @@ body::before {
 
     // ---- Navigation ----
 
-    function navigate(targetId) {
-        const views = document.querySelectorAll('.view');
-        const backBtn = document.getElementById('back-btn');
+    let viewHistory = ['main-menu'];
 
-        views.forEach(view => view.classList.remove('active'));
+function navigate(targetId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(targetId).classList.add('active');
 
-        document.getElementById(targetId).classList.add('active');
+    viewHistory.push(targetId);
+    updateBackButton();
+}
 
-        if (targetId === 'main-menu') {
-            backBtn.classList.remove('visible');
-        } else {
-            backBtn.classList.add('visible');
-        }
+function goBack() {
+    if (viewHistory.length > 1) {
+        viewHistory.pop();
+        const previous = viewHistory[viewHistory.length - 1];
+
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(previous).classList.add('active');
+
+        updateBackButton();
     }
+}
+
+function updateBackButton() {
+    const backBtn = document.getElementById('back-btn');
+    if (viewHistory[viewHistory.length - 1] === 'main-menu') {
+        backBtn.classList.remove('visible');
+    } else {
+        backBtn.classList.add('visible');
+    }
+}
 
 </script>
 
