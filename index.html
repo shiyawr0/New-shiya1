@@ -61,22 +61,147 @@ body {
    TACTICAL BACKGROUND
 ===================================================== */
 .app-background {
+.app-background {
     position: fixed;
     inset: 0;
 
-    background: url(181d4115990c5193232c863999d8a68d.gif) center / cover no-repeat;
+    background:
+        radial-gradient(
+            circle at 75% 50%,
+            rgba(217, 4, 41, 0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(255, 0, 51, 0.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #050505,
+            #151515 50%,
+            #050505
+        );
 
     z-index: -5;
 }
-   #main-menu {
+
+
+/* Grid */
+
+.app-background::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    animation: gridMove 15s linear infinite;
+}
+
+
+@keyframes gridMove {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 50px 50px;
+    }
+}
+
+
+/* Moving red glow */
+
+.app-background::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -150px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    background: var(--red);
+
+    filter: blur(180px);
+
+    opacity: 0.12;
+
+    animation: glowMove 6s ease-in-out infinite alternate;
+}
+
+
+@keyframes glowMove {
+
+    from {
+        opacity: 0.08;
+        transform: translateY(-50%) scale(0.9);
+    }
+
+    to {
+        opacity: 0.18;
+        transform: translateY(-50%) scale(1.1);
+    }
+}
+
+
+/* Dark overlay */
+
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+
     background:
         linear-gradient(
             90deg,
-            rgba(5,5,5,0.7),
-            rgba(5,5,5,0.4)
-        ),
-        url(eb40e5538692eba012f20c4cc3cf52be.gif) center / cover no-repeat;
-   }
+            rgba(5,5,5,1),
+            rgba(5,5,5,0.65),
+            rgba(5,5,5,0.95)
+        );
+
+    z-index: -4;
+}
+
+
+/* Scan lines */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.025) 0px,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    z-index: 999;
+}
 
 /* =====================================================
    LOADING SCREEN
